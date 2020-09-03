@@ -1,7 +1,7 @@
 # ComprehensivePractice
 Warehouse for group projects
 
-昵称： BaoZhuZhu       姓名：朱明煊
+昵称： 朱明煊/BaoZhuZhu       姓名：朱明煊
 
 昵称：Ishmael-7        姓名：陈浩翔
 
