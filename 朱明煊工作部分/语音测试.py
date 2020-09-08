@@ -21,7 +21,6 @@ elif(temp>37.2):
         ans = text + str(temp) + '度 ' + suggestion2 + alarm
 else:
     ans = text + str(temp) + '度 ' + suggestion1
-    
 voice=pyttsx3.init()
 voice.say(ans)
 voice.runAndWait()
