@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main</class>
+ <widget class="QWidget" name="main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>main_ui</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>90</y>
+     <width>331</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QComboBox" name="area_select">
+      <item>
+       <property name="text">
+        <string>选择地区</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>地区1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>地区2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>地区3</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="time_select">
+      <item>
+       <property name="text">
+        <string>选择时间</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>time1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>time2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>time3</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="push_button">
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+   <zorder>push_button</zorder>
+   <zorder>time_select</zorder>
+   <zorder>area_select</zorder>
+  </widget>
+  <widget class="QTextEdit" name="bg_view">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>801</width>
+     <height>601</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/bg1.png);</string>
+   </property>
+  </widget>
+  <zorder>bg_view</zorder>
+  <zorder>layoutWidget</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
