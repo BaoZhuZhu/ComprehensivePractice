@@ -21,7 +21,9 @@ class Ui_userInput(object):
     def setupUi(self, userinput):
         if not userinput.objectName():
             userinput.setObjectName(u"userinput")
+
         userinput.resize(800, 600)
+
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -29,6 +31,7 @@ class Ui_userInput(object):
         userinput.setLayoutDirection(Qt.LeftToRight)
         userinput.setAutoFillBackground(False)
         userinput.setStyleSheet(u"")
+        
         self.bg_img = QLabel(userinput)
         self.bg_img.setObjectName(u"bg_img")
         self.bg_img.setEnabled(True)
@@ -38,17 +41,18 @@ class Ui_userInput(object):
         self.bg_img.setPixmap(QPixmap(u":/bg.jpg"))
         self.bg_img.setScaledContents(True)
         self.bg_img.setAlignment(Qt.AlignCenter)
+
         self.ctrl_widgets = QWidget(userinput)
         self.ctrl_widgets.setObjectName(u"ctrl_widgets")
         self.ctrl_widgets.setGeometry(QRect(0, 0, 400, 600))
         self.input = QTextEdit(userinput)
         self.input.setObjectName(u"input")
-        #sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        #sizePolicy1.setHorizontalStretch(0)
-        #sizePolicy1.setVerticalStretch(0)
-        #sizePolicy1.setHeightForWidth(self.input.sizePolicy().hasHeightForWidth())
-        #self.input.setSizePolicy(sizePolicy1)
-        #self.input.setAutoFillBackground(True)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.input.sizePolicy().hasHeightForWidth())
+        self.input.setSizePolicy(sizePolicy1)
+        self.input.setAutoFillBackground(True)
 
 
         self.push_button = QPushButton(self.ctrl_widgets)
@@ -77,7 +81,7 @@ class Ui_userInput(object):
         sizePolicy1.setHeightForWidth(self.remind.sizePolicy().hasHeightForWidth())
         self.remind.setSizePolicy(sizePolicy1)
         self.remind.setAutoFillBackground(True)
-        self.input.setFixedSize(400,30)
+        self.input.setFixedSize(600,30)
         self.verticalLayout.addWidget(self.remind)
         self.verticalLayout.addWidget(self.input)
         self.verticalLayout.addWidget(self.push_button)

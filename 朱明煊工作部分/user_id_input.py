@@ -1,11 +1,13 @@
 import sys
 
 import PySide2
+from PySide2.QtCore import QRect
 from PySide2.QtWidgets import QApplication, QWidget
 
-#from common import areas, times
+from user_info_show import userInfoVisual
+# from common import areas, times
 from user_input_ui import Ui_userInput
-from user_data_visual import userDataVisual
+
 
 class user_input_ui(Ui_userInput,QWidget):
     def __init__(self):
@@ -18,13 +20,21 @@ class user_input_ui(Ui_userInput,QWidget):
         self.push_button.clicked.connect(self.to_user_info_show_ui)
 
     def to_user_info_show_ui(self):
-        userID = str(self.input.toPlainText())
+        userID = int(self.input.toPlainText())
         self.subwidget = userInfoVisual(userID)
         self.sub_ui.append(self.subwidget)
         self.subwidget.show()
 
+
     def resizeEvent(self, event: PySide2.QtGui.QResizeEvent):
         super().resizeEvent(event)
         self.bg_img.resize(self.size())
-        self.ctrl_widgets.resize(self.size().width() * 0.5,
-                                 self.size().height())
+        self.ctrl_widgets.setGeometry(QRect(self.size().width() * 0.25,
+                                            0,
+                                            self.size().width() * 0.5,
+                                            self.size().height()))
+if __name__ == "__main__":
+    app = QApplication([])
+    widget = user_input_ui()
+    widget.show()
+    sys.exit(app.exec_())

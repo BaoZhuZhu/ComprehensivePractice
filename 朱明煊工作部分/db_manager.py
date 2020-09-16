@@ -34,7 +34,7 @@ def create_fake_date():
                  temp_all[i], create_datetime(dtm_all[i]),
                  area_all[i]).save()
 
-def query_data_by_hour_and_area(start_hour, end_hour, area_index):
+def query_data_by_hour_and_area(start_hour, end_hour,month, day, area_index):
     data = UserInfo.objects.all()
 
     area_fliter_result = []
@@ -42,21 +42,18 @@ def query_data_by_hour_and_area(start_hour, end_hour, area_index):
         if int(i.measuredPlace) == area_index:
             area_fliter_result.append(i)
 
-    hour_fliter_result = []
+    day_fliter_result = []
     for i in area_fliter_result:
+        if month==i.measuredDatetime.month and day==i.measuredDatetime.day:
+            day_fliter_result.append(i)
+
+    hour_fliter_result = []
+    for i in day_fliter_result:
         if start_hour <= i.measuredDatetime.hour <= end_hour:
             hour_fliter_result.append(i)
     return hour_fliter_result
 
 def query_data_by_userID(userID):
-    data = UserInfo.objects.all()
-    names = []
-    for i in data:
-        if i.userId == userID:
-            names.append(i)
-    return names[0]
-
-def query_name_by_userID(userID):
     data = UserInfo.objects.all()
     id_fliter_result = []
     for i in data:
@@ -64,58 +61,86 @@ def query_name_by_userID(userID):
             id_fliter_result.append(i)
     return id_fliter_result
 
+def query_name_by_userID(userID):
+    data = UserInfo.objects.all()
+    names = []
+    for i in data:
+        if i.userId == userID:
+            names.append(i.userName)
+    return names[0]
 class UserDataAnalysis(object):
     def __init__(self,userID):
         self.data = query_data_by_userID(userID)
         self.name = query_name_by_userID(userID)
-        temp_all = []
+        self.temp_all = []
+        self.info = []
+        self.temp_select = []
+        self.time_select = []
         for i in self.data:
-            temp_all.append(i.userTemperature)
-        sorted(self.data,key=lambda temp_all:self.date[2],reverse=True)
-        self.place = []
-        self.temp = []
-        self.time = []
+            self.temp_all.append(i.userTemperature)
+        sorted(self.data,reverse=True)
         if len(self.data)>7:
             for i in self.data[0:7]:
-                self.temp.append(i.userTemperature)
-                self.place.append(i.measuredPlace)
-                self.time.append(datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
+                s = ''
+                if(int(i.measuredPlace)==1):
+                    s = '诚园8斋'
+                elif(int(i.measuredPlace)==2):
+                    s = '55教学楼'
+                else:
+                    s = '学一食堂'
+                ss = '体温: ' + str(i.userTemperature) + ' ' + '测温地点：' + s + ' ' + '测温时间 ' + (datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
+                self.info.append(ss)
+                self.temp_select.append(i.userTemperature)
+                self.time_select.append(datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
         else:
-            for i in temp_all:
-                self.temp.append(i.userTemperature)
-                self.place.append(i.measuredPlace)
-                self.time.append(datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
-        average = sum(temp_all) / len(temp_all)
-        maxx = max(temp_all)
-        minn = min(temp_all)
+            for i in self.data:
+                s = ''
+                if (int(i.measuredPlace) == 1):
+                    s = '诚园8斋'
+                elif (int(i.measuredPlace) == 2):
+                    s = '55教学楼'
+                else:
+                    s = '学一食堂'
+                ss = '体温: ' + str(i.userTemperature) + ' ' + '测温地点：' + s + ' ' + '测温时间 ' + (
+                    datetime.datetime.strftime(i.measuredDatetime, '%Y-%m-%d %H:%M:%S'))
+                self.info.append(ss)
+                self.temp_select.append(i.userTemperature)
+                self.time_select.append(datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
+
+        average = sum(self.temp_all) / len(self.temp_all)
+        maxx = max(self.temp_all)
+        minn = min(self.temp_all)
         self.__average_temperature = average
         self.__max_temperature = maxx
         self.__min_temperature = minn
-        self.info = []
-        for i in len(self.place):
-            str = '体温: ' + str(self.temp[i]) + ' ' + '测温地点： ' + str(self.place[i]) + ' ' + '测温时间 ' + self.time[i]
-            self.info.append(str)
+
     @property
     def average_temperature(self):
         return self.__average_temperature
-
     @property
     def max_temperature(self):
         return self.__max_temperature
-
     @property
     def min_temperature(self):
         return self.__min_temperature
-
+    @property
+    def user_name(self):
+        return self.name
     @property
     def user_info(self):
         return self.info
+    @property
+    def user_temp(self):
+        return self.temp_select
+    @property
+    def user_time(self):
+        return self.time_select
 
 class DataAnalysis(object):
 
-    def __init__(self, start_hour, end_hour, area_index):
+    def __init__(self, start_hour, end_hour, month,day,area_index):
         self.data = query_data_by_hour_and_area(start_hour,
-                                                end_hour,
+                                                end_hour,month,day,
                                                 area_index)
 
         temp_all = []
@@ -157,4 +182,6 @@ class DataAnalysis(object):
 
 
 if __name__ == "__main__":
-    res = query_data_by_hour_and_area(6, 11, 1)
+    # res = query_data_by_hour_and_area(6, 11, 1)
+    # create_fake_date()
+    pass
