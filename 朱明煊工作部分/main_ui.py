@@ -19,6 +19,7 @@ class Ui_main(object):
         if not main.objectName():
             main.setObjectName(u"main")
         main.resize(800, 600)
+
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -27,6 +28,7 @@ class Ui_main(object):
         main.setLayoutDirection(Qt.LeftToRight)
         main.setAutoFillBackground(False)
         main.setStyleSheet(u"")
+
         self.bg_img = QLabel(main)
         self.bg_img.setObjectName(u"bg_img")
         self.bg_img.setEnabled(True)
@@ -38,9 +40,28 @@ class Ui_main(object):
         self.bg_img.setAlignment(Qt.AlignCenter)
         self.ctrl_widgets = QWidget(main)
         self.ctrl_widgets.setObjectName(u"ctrl_widgets")
-        self.ctrl_widgets.setGeometry(QRect(0, 0, 400, 600))
+        self.ctrl_widgets.setGeometry(QRect(200, 0, 400, 600))
         self.verticalLayout = QVBoxLayout(self.ctrl_widgets)
         self.verticalLayout.setObjectName(u"verticalLayout")
+
+        self.day_select = QComboBox(self.ctrl_widgets)
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.addItem("")
+        self.day_select.setObjectName(u"day_select")
+        sizePolicy0 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy0.setHorizontalStretch(0)
+        sizePolicy0.setVerticalStretch(0)
+        sizePolicy0.setHeightForWidth(self.day_select.sizePolicy().hasHeightForWidth())
+        self.day_select.setSizePolicy(sizePolicy0)
+        self.day_select.setAutoFillBackground(True)
+        self.verticalLayout.addWidget(self.day_select)
+
         self.time_select = QComboBox(self.ctrl_widgets)
         self.time_select.addItem("")
         self.time_select.addItem("")
@@ -91,6 +112,16 @@ class Ui_main(object):
     def retranslateUi(self, main):
         main.setWindowTitle(QCoreApplication.translate("main", u"main_ui", None))
         self.bg_img.setText("")
+        self.day_select.setItemText(0, QCoreApplication.translate("main", u"选择日期", None))
+        self.day_select.setItemText(1, QCoreApplication.translate("main", u"day1", None))
+        self.day_select.setItemText(2, QCoreApplication.translate("main", u"day2", None))
+        self.day_select.setItemText(3, QCoreApplication.translate("main", u"day3", None))
+        self.day_select.setItemText(4, QCoreApplication.translate("main", u"day4", None))
+        self.day_select.setItemText(5, QCoreApplication.translate("main", u"day5", None))
+        self.day_select.setItemText(5, QCoreApplication.translate("main", u"day6", None))
+        self.day_select.setItemText(5, QCoreApplication.translate("main", u"day7", None))
+
+
         self.time_select.setItemText(0, QCoreApplication.translate("main", u"\u9009\u62e9\u65f6\u95f4", None))
         self.time_select.setItemText(1, QCoreApplication.translate("main", u"time1", None))
         self.time_select.setItemText(2, QCoreApplication.translate("main", u"time2", None))

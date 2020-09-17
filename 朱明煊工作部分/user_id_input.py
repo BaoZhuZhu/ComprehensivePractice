@@ -25,14 +25,16 @@ class user_input_ui(Ui_userInput,QWidget):
         self.sub_ui.append(self.subwidget)
         self.subwidget.show()
 
-
     def resizeEvent(self, event: PySide2.QtGui.QResizeEvent):
         super().resizeEvent(event)
         self.bg_img.resize(self.size())
         self.ctrl_widgets.setGeometry(QRect(self.size().width() * 0.25,
                                             0,
                                             self.size().width() * 0.5,
+
                                             self.size().height()))
+
+
 if __name__ == "__main__":
     app = QApplication([])
     widget = user_input_ui()

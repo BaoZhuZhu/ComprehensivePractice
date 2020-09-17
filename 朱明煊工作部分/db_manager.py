@@ -107,9 +107,9 @@ class UserDataAnalysis(object):
                 self.temp_select.append(i.userTemperature)
                 self.time_select.append(datetime.datetime.strftime(i.measuredDatetime,'%Y-%m-%d %H:%M:%S'))
 
-        average = sum(self.temp_all) / len(self.temp_all)
-        maxx = max(self.temp_all)
-        minn = min(self.temp_all)
+        average = sum(self.temp_select) / len(self.temp_select)
+        maxx = max(self.temp_select)
+        minn = min(self.temp_select)
         self.__average_temperature = average
         self.__max_temperature = maxx
         self.__min_temperature = minn

@@ -1,7 +1,7 @@
 import sys
 
 import PySide2
-from PySide2.QtCore import QPoint, Qt, QRect
+from PySide2.QtCore import QPoint, Qt, QRect, QPointF
 from PySide2.QtGui import QPainter, QBrush, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow
 import matplotlib.pyplot as plt
@@ -10,6 +10,7 @@ from db_manager import UserDataAnalysis
 from user_info_show_ui import Ui_user_info_show
 from PySide2.QtCharts import QtCharts
 import main_rc
+
 
 class userInfoVisual(Ui_user_info_show, QMainWindow):
 
@@ -35,15 +36,16 @@ class userInfoVisual(Ui_user_info_show, QMainWindow):
             "最高温度:{}".format(round(analyser.max_temperature,2)))
         self.min_temperature.setText(
             "最低温度:{}".format(round(analyser.min_temperature,2)))
+        self.record = ''
         self.user_info.setText(
-            "信息:{}".format(str(self.info)))
+            "信息:\n {}".format(str(self.info)))
         self.set_slots()
 
         self.lineSeries = QtCharts.QLineSeries()
         self.lineSeries.setName("time-temp")
         self.data_set = []
         for i, t in enumerate(self.temp):
-            self.data_set.append(QPoint(i, t))
+            self.data_set.append(QPointF(i, t))
         self.lineSeries.append(self.data_set)
 
         self.chart = QtCharts.QChart()
@@ -58,7 +60,6 @@ class userInfoVisual(Ui_user_info_show, QMainWindow):
         self.axisY = QtCharts.QValueAxis()
         self.chart.setAxisY(self.axisY, self.lineSeries)
         self.axisY.setRange(35, 39)
-
         self.chart.axisY().setTitleText("体温")
         self.chart.axisX().setTitleText("时间")
 
@@ -71,8 +72,6 @@ class userInfoVisual(Ui_user_info_show, QMainWindow):
         self.showChart.clicked.connect(self.get_plots)
 
     def get_plots(self):
-        print(self.temp)
-        print(self.time)
         self.chartView.setVisible(True)
         self.reRender()
 
@@ -85,7 +84,6 @@ class userInfoVisual(Ui_user_info_show, QMainWindow):
                                          0,
                                          self.size().width() * 0.5,
                                          self.size().height()))
-
 
     def resizeEvent(self, event: PySide2.QtGui.QResizeEvent):
         super().resizeEvent(event)

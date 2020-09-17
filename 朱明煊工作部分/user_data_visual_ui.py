@@ -7,6 +7,7 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+import sys
 
 from PySide2.QtCore import *
 from PySide2.QtGui import *
@@ -57,4 +58,3 @@ class Ui_userDataVisual(object):
         self.people_count.setText(QCoreApplication.translate("userDataVisual", u"\u603b\u4eba\u6570\uff1a", None))
         self.average_temperature.setText(QCoreApplication.translate("userDataVisual", u"\u5e73\u5747\u6e29\u5ea6\uff1a", None))
     # retranslateUi
-

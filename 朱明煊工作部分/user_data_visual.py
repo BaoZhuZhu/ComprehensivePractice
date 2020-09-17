@@ -5,7 +5,7 @@ from PySide2.QtCore import QPoint, Qt, QRect
 from PySide2.QtGui import QPainter, QBrush, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow
 
-from common import times
+from common import times,days
 from db_manager import DataAnalysis
 from user_data_visual_ui import Ui_userDataVisual
 from PySide2.QtCharts import QtCharts
@@ -13,17 +13,19 @@ import main_rc
 
 class userDataVisual(Ui_userDataVisual, QMainWindow):
 
-    def __init__(self, timeIndex, areaIndex):
+    def __init__(self, dayIndex,timeIndex, areaIndex):
         super(userDataVisual, self).__init__()
         self.setupUi(self)
         self.bg_pixmap = QPixmap(u":/bg.jpg")
         self.org_bg_pixmap = QPixmap(u":/bg.jpg")
 
+        self.__dayIndex = dayIndex
         self.__timeIndex = timeIndex
         self.__areaIndex = areaIndex
 
         start_time, end_time = self.getTimeRange()
-        analyser = DataAnalysis(start_time, end_time, self.__areaIndex)
+        month_time, day_time = self.getDay()
+        analyser = DataAnalysis(start_time, end_time, month_time,day_time,self.__areaIndex)
 
         self.average_temperature.setText(
             "平均温度：{}".format(round(analyser.average_temperature, 2)))
@@ -63,6 +65,8 @@ class userDataVisual(Ui_userDataVisual, QMainWindow):
         self.chartView.setRenderHint(QPainter.Antialiasing)
         self.chartView.setGeometry(QRect(50, 50, 600, 450))
 
+
+
     def resizeEvent(self, event: PySide2.QtGui.QResizeEvent):
         super().resizeEvent(event)
         size = self.size()
@@ -85,3 +89,9 @@ class userDataVisual(Ui_userDataVisual, QMainWindow):
         start_time = int(start_time.split(":")[0])
         end_time = int(end_time.split(":")[0])
         return [start_time, end_time]
+
+    def getDay(self):
+        day_time = days[self.__dayIndex-1]
+        month = int(day_time.split("-")[0])
+        day = int(day_time.split("-")[1])
+        return  [month,day]

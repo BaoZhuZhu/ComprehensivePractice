@@ -22,7 +22,7 @@ class Ui_user_info_show(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.ctrl_widgets = QWidget(self.centralwidget)
         self.ctrl_widgets.setObjectName(u"ctrl_widgets")
-        self.ctrl_widgets.setGeometry(QRect(200, 100, 400, 400))
+        self.ctrl_widgets.setGeometry(QRect(100, 100, 600, 400))
         self.verticalLayout = QVBoxLayout(self.ctrl_widgets)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.user_info = QTextBrowser(self.ctrl_widgets)
